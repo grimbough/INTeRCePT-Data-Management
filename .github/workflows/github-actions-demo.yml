@@ -30,8 +30,7 @@ jobs:
     # 4. Install AWS CLI
     - name: Install AWS CLI
       run: |
-        sudo apt-get update
-        sudo apt-get install -y awscli
+        sudo snap install aws-cli --classic
 
 # 5. Configure AWS credentials securely using GitHub Secrets
     - name: Configure AWS credentials
