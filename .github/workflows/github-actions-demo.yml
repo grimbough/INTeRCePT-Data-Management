@@ -25,8 +25,7 @@ jobs:
     - name: Render Quarto project
       run: |
         docker exec quarto-container quarto render /project
-        cd $(pwd):/project
-        ls -l
+        ls -l $(pwd)/project
 #
 #    # 4. Install AWS CLI
 #    - name: Install AWS CLI
