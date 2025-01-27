@@ -17,8 +17,9 @@ jobs:
     # 2. Set up Docker container with Quarto
     - name: Set up Docker
       run: |
-        docker run -d --name quarto-container -v $(pwd):/project ghcr.io/quarto-dev/quarto:latest
-        docker exec quarto-container quarto check install # Optional, verify Quarto is installed
+        docker run -d --name quarto-container -v $(pwd):/project ghcr.io/quarto-dev/quarto:latest || exit 1
+        sleep 10 # Wait for the container to be fully up
+        docker exec quarto-container quarto check install || exit 1 # Optional, verify Quarto is installed
 
     # 3. Render the Quarto project
     - name: Render Quarto project
