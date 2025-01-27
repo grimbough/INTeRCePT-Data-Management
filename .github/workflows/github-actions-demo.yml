@@ -17,15 +17,14 @@ jobs:
     # 2. Set up Docker container with Quarto
     - name: Set up Docker
       run: |
-        docker pull ghcr.io/quarto-dev/quarto:1.7.13 -v $(pwd):/project
-#        docker run -d --name quarto-container -v $(pwd):/project ghcr.io/quarto-dev/quarto:latest || exit 1
+        docker run -d --name quarto-container -v $(pwd):/project ghcr.io/quarto-dev/quarto:latest || exit 1
 #        sleep 10 # Wait for the container to be fully up
 #        docker exec -it quarto-container quarto check install || exit 1 # Optional, verify Quarto is installed
 
     # 3. Render the Quarto project
     - name: Render Quarto project
       run: |
-        docker run ghcr.io/quarto-dev/quarto:1.7.13 quarto render /project
+        docker run quarto-container quarto render /project
 #        docker exec quarto-container quarto render /project
 #
 #    # 4. Install AWS CLI
