@@ -1,0 +1,57 @@
+---
+title: "INTeRCePT Meeting Notes"
+description: "Heidelberg, 20th of January 2025"
+author: "Wolfgang Huber"
+date: "2025-01-20"
+categories: "Past events"
+---
+
+Topic: Data Management, Introduction of Miriam Müller
+
+**Attendees**: Thorsten Zenz ([thorsten.zenz\@usz.ch](mailto:thorsten.zenz@usz.ch)), Marta Pinto ([marta.PintoCarbo\@usz.ch](mailto:marta.PintoCarbo\@usz.ch)), Wolfgang Huber ([wolfgang.huber\@embl.org](mailto:wolfgang.huber@embl.org))
+
+**2025-01-21**
+
+## **Open problems**
+
+-   There is a need to centrally catalogue it is unclear what data exists and where it some of the data is stored
+
+-   e.g. for flow data - there was a succession of at least three it is unclear whether different experimenters (Tobias Wertheimer, Stefanie Kreutmair, Minqi). To what extent did they  people perform flow cytometry in different ways, and how does it affect the data?
+
+## **To Do List**
+
+-   Get an overview of the data types and all data sets and where to find what
+
+-   Talk to Marta about the data organisation in Zürich
+
+-   Get in contact with [Natalia](https://www.sib.swiss/directory/person/nchicher) to understand what she did
+
+-   Talk to Junyan and Caroline to understand their project (“1000 transcriptomes”)
+
+-   Get an overview of the tumor biobank (w/Marta) database
+
+-   Create an index page (portal) where all data, metadata, processing steps (scripts) can be found to understand the project\
+    \
+
+    -   create sections for the five different data types
+
+    -   give all relevant information so that it represents a comprehensive guide for people starting on a project
+
+    -   try to create something using elements fromlike the old CLL wiki or [ https://www.huber.embl.de/group/posts.html](https://www.huber.embl.de/group/posts.html)
+
+-   Make sure data is prepared for use in MOFA
+
+## **Pilot project**
+
+-   collect flow data (Hosna) and clinical data (Marta) and try to perform statistical tests on the data (e.g. t-test, Cox regression / Kaplan-Meier plots)
+
+## **Flow data & compatibility with MOFA**
+
+-   For MOFA: data points = sample specific
+
+-   For Flow Data: data points = cell specific\
+    \
+
+    -   for MOFA cells wouldneed to be grouped and summarized by cell typeclustered (“pseudobulk”)
+
+    -   cell type fractions are created to be used in MOFA
