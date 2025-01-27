@@ -27,13 +27,13 @@ jobs:
         docker exec quarto-container quarto render /project
         ls -l $(pwd)/_site
 
-    # 4. Install AWS CLI
-    - name: Install AWS CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y awscli
+#    # 4. Install AWS CLI
+#    - name: Install AWS CLI
+#      run: |
+#        sudo apt-get update
+#        sudo apt-get install -y awscli
 
-# 5. Configure AWS credentials securely using GitHub Secrets
+# 4. Configure AWS credentials securely using GitHub Secrets
     - name: Configure AWS credentials
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
