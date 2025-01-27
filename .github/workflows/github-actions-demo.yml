@@ -18,7 +18,6 @@ jobs:
     - name: Set up Docker
       run: |
         docker run -d --name quarto-container -v $(pwd):/project ghcr.io/quarto-dev/quarto:latest tail -f /dev/null
-        docker ps
 #        sleep 10 # Wait for the container to be fully up
 #        docker exec -it quarto-container quarto check install || exit 1 # Optional, verify Quarto is installed
 
@@ -26,6 +25,8 @@ jobs:
     - name: Render Quarto project
       run: |
         docker exec quarto-container quarto render /project
+        cd /project
+        ls -l
 #
 #    # 4. Install AWS CLI
 #    - name: Install AWS CLI
