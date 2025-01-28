@@ -2,8 +2,7 @@ name: Deploy to S3 with Quarto
 
 on:
   push:
-    branches:
-      - main # Trigger workflow on pushes to the main branch
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -12,14 +11,12 @@ jobs:
     steps:
     # 1. Check out the repository
     - name: Check out repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # 2. Set up Docker container with Quarto
     - name: Set up Docker
       run: |
         docker run -d --name quarto-container -v $(pwd):/project ghcr.io/quarto-dev/quarto:latest tail -f /dev/null
-#        sleep 10 # Wait for the container to be fully up
-#        docker exec -it quarto-container quarto check install || exit 1 # Optional, verify Quarto is installed
 
     # 3. Render the Quarto project
     - name: Render Quarto project
@@ -27,35 +24,17 @@ jobs:
         docker exec quarto-container quarto render /project
         ls -l $(pwd)/_site
 
-    # 4. Install AWS CLI
+    # 4. Setup MinIO client
     - name: Install AWS CLI
-      run: |
-        sudo snap install aws-cli --classic
-
-    # 5. Configure AWS credentials securely using GitHub Secrets
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v3
+      uses: lovellfelix/minio-deploy-action@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
-
-    # 5. Configure AWS credentials securely using GitHub Secrets
-#    - name: Configure AWS credentials
-#      env:
-#        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#        AWS_REGION: ${{ secrets.AWS_REGION }}
-#      run: |
-#        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-#        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-#        aws configure set default.region $AWS_REGION
-#        aws sts get-caller-identity
-
-    # 6. Upload rendered files to S3
-    - name: Upload to S3
-      run: |
-        aws s3 sync _site s3://${{ secrets.S3_BUCKET_NAME }} --delete
+        endpoint: https://s3.embl.de/
+        access_key: Ti7WUzZXlGoyNaG6sXh4
+        secret_key: ${{ secrets.MINIO_SECRET_KEY }}
+        bucket: 'test-bucket-1'
+        # Optional inputs with their defaults:
+        source_dir: '_site'
+        target_dir: '/quarto-example/'
 
     # 7. Clean up Docker container
     - name: Clean up Docker container
